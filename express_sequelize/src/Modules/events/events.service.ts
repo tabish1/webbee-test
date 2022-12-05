@@ -1,8 +1,10 @@
-import Event from './entities/event.entity';
-
+import { Sequelize, Op } from "sequelize";
+import { now } from "sequelize/types/utils";
+import { Type } from "typescript";
+import Event from "./entities/event.entity";
+import Workshop from "./entities/workshop.entity";
 
 export class EventsService {
-
   async getWarmupEvents() {
     return await Event.findAll();
   }
@@ -85,8 +87,23 @@ export class EventsService {
      */
 
   async getEventsWithWorkshops() {
-    throw new Error('TODO task 1');
+    let events = await Event.findAll();
+    let workshops = await Workshop.findAll();
+
+    let data = events.map((e) => {
+      return {
+        id: e.id,
+        name: e.name,
+        createdAt: e.createdAt,
+        workshops: this.getEventWorkshops(e.id, workshops),
+      };
+    });
+
+    return data;
   }
+
+  getEventWorkshops = (eId: number, workshops: Workshop[]) =>
+    workshops.filter((w) => w.eventId == eId);
 
   /* TODO: complete getFutureEventWithWorkshops so that it returns events with workshops, that have not yet started
     Requirements:
@@ -155,6 +172,26 @@ export class EventsService {
     ```
      */
   async getFutureEventWithWorkshops() {
-    throw new Error('TODO task 2');
+    let events = await Event.findAll({});
+    let workshops = await Workshop.findAll({
+      where: {
+        start: { [Op.gte]: "2022-12-06 01:00:00" },
+      },
+    });
+
+    let data = events.map((e) => {
+      return {
+        id: e.id,
+        name: e.name,
+        createdAt: e.createdAt,
+        workshops: this.getEventWorkshops(e.id, workshops),
+      };
+    });
+
+    data = data.filter((e) => {
+      return e.workshops.length > 0;
+    });
+
+    return data;
   }
 }

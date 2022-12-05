@@ -3,10 +3,9 @@ import {
   Column,
   Model,
   AutoIncrement,
-  PrimaryKey
-} from 'sequelize-typescript';
-import { ModelAttributeColumnOptions } from 'sequelize';
-
+  PrimaryKey,
+} from "sequelize-typescript";
+import { ModelAttributeColumnOptions } from "sequelize";
 
 @Table({
   updatedAt: false,
@@ -17,21 +16,21 @@ export default class Workshop extends Model {
   @Column
   declare id: number;
 
-  @Column({ type: 'datetime' } as ModelAttributeColumnOptions)
+  @Column({ type: "datetime" } as ModelAttributeColumnOptions)
   start: string;
 
-  @Column({ type: 'datetime' } as ModelAttributeColumnOptions)
+  @Column({ type: "datetime" } as ModelAttributeColumnOptions)
   end: string;
 
   @Column({
-    type: 'integer',
+    type: "integer",
     defaultValue: null,
   } as ModelAttributeColumnOptions)
-  eventId: number;
+  declare eventId: number;
 
   @Column
   name: string;
 
-  @Column({ type: 'datetime' } as ModelAttributeColumnOptions)
+  @Column({ type: "datetime" } as ModelAttributeColumnOptions)
   declare createdAt: string;
 }

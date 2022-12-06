@@ -1,3 +1,5 @@
+**NOTE: You can find the solution inside express_sequelize**
+
 **Minimum Node Version: 16.5 or higher**
 
 Get started:
@@ -15,5 +17,3 @@ Your task:
 - In these files, you will find what you need to do to pass the test cases.
 
 Good luck! 🍀🚀
-
-P.S: You can find the solution inside express_sequelize
